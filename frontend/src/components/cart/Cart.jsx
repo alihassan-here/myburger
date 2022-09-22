@@ -52,7 +52,8 @@ const Cart = () => {
                 <article>
                     <div>
                         <h4>Sub Total</h4>
-                        <p>₨{2000}</p>
+                        <p>₨
+                            {2000}</p>
                     </div>
                     <div>
                         <h4>Tax</h4>
