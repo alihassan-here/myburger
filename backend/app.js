@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectPassport } from "./utils/Provider.js";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import passport from "passport";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
 const app = express();
@@ -14,7 +15,7 @@ dotenv.config({
 
 //USING MIDDLEWARES
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -32,9 +33,12 @@ connectPassport();
 
 //IMPORTING ROUTES
 import userRoute from "./routes/user.js";
-import passport from "passport";
+import orderRoute from "./routes/order.js";
+
+
 
 app.use("/api/v1", userRoute);
+app.use("/api/v1", orderRoute);
 
 //ERROR HANDLING MIDDLEWARE
 
