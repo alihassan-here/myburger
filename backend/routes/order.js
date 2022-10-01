@@ -1,10 +1,17 @@
 import express from "express";
-import { isAuthenticated } from "../middlewares/auth.js";
-import { placeOrder } from "../controllers/order.js";
+import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
+import { getAdminOrders, getOrderDetails, MyOrders, placeOrder, processOrder } from "../controllers/order.js";
 
 const router = express.Router();
 
-router.post("/createorder", isAuthenticated, placeOrder)
+router.post("/createorder", isAuthenticated, placeOrder);
+
+router.get("/myorders", isAuthenticated, MyOrders);
+router.get("/order/:id", isAuthenticated, getOrderDetails);
+
+//ADD ADMIN MIDDLEWARE
+router.get("/admin/orders", isAuthenticated, authorizeAdmin, getAdminOrders);
+router.get("/admin/order/:id", isAuthenticated, authorizeAdmin, processOrder);
 
 
 
